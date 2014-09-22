@@ -53,10 +53,14 @@ class ViewController: UIViewController {
     }
     
     func createBalloons() {
-        
+        var lastPictureIndex:Int = 0
         for var balloonCount = 1; balloonCount <= 99; balloonCount++ {
-            let randomNumber = Int(arc4random_uniform(UInt32(imageArray.count)))
-            var aBalloon:Balloon = Balloon(number: balloonCount, image: imageArray[randomNumber])
+            var randomPictureIndex = Int(arc4random_uniform(UInt32(imageArray.count)))
+            while randomPictureIndex == lastPictureIndex { // ensure each balloon image is different from the last
+                randomPictureIndex = Int(arc4random_uniform(UInt32(imageArray.count)))
+            }
+            var aBalloon:Balloon = Balloon(number: balloonCount, image: imageArray[randomPictureIndex])
+            lastPictureIndex = randomPictureIndex
             myBalloons.append(aBalloon)
         }
     }
